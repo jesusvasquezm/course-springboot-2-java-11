@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable{
@@ -26,8 +28,12 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
+	
+	//Quando têm uma "ToMany" association, o JPA não carrega os objetos para muitos
+	//para não estourar a memória o trafego do meu computador. Por isso, o JPA faz o lazy loading
 	
 	public User() {
 		
