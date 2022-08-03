@@ -9,14 +9,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
-public class Product implements Serializable{
+public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -24,14 +26,17 @@ public class Product implements Serializable{
 	private String description;
 	private Double price;
 	private String imgUrl;
-	
-	//Usar Set em vez de List,porque Set representa um conjunto
-	//Para garantir que meu produto não tenha a mesma categoria mais de uma vez
-	@Transient
+
+	// Usar Set em vez de List,porque Set representa um conjunto
+	// Para garantir que meu produto não tenha a mesma categoria mais de uma vez
+	@ManyToMany
+	@JoinTable(name = "tb_product_category",
+	joinColumns = @JoinColumn(name = "product_id"), // product ->foreing key
+	inverseJoinColumns = @JoinColumn(name = "category_id")) // category -> foreign key
 	private Set<Category> categories = new HashSet<>();
-	
-	private Product() {
-		
+
+	public Product() {
+
 	}
 
 	public Product(Long id, String name, String description, Double price, String imgUrl) {
@@ -104,6 +109,4 @@ public class Product implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-
-	
 }
