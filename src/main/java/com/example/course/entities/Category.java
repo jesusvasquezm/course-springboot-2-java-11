@@ -26,6 +26,7 @@ public class Category implements Serializable{
 	
 	@JsonIgnore //Evita que ocorra um loop de chamadas ex: category - product
 	@ManyToMany(mappedBy = "categories")
+	//O JoinColumn é quando um relacionamento é de muitos pra muitos.Já o MappedBy você utilizar no lado inverso da sua conexão.
 	private Set<Product> products = new HashSet<>();
 	
 	public Category() {
