@@ -18,6 +18,7 @@ public class OrderItemPK implements Serializable{ //Classe auxiliar de uma chave
 	@ManyToOne
 	@JoinColumn(name= "order_id")
 	private Order order;
+	
 	@ManyToOne
 	@JoinColumn(name= "product_id")
 	private Product product;
@@ -25,6 +26,7 @@ public class OrderItemPK implements Serializable{ //Classe auxiliar de uma chave
 	
 	public Product getProduct() {
 		return product;
+		
 	}
 	public void setProduct(Product product) {
 		this.product = product;
