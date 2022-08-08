@@ -23,7 +23,7 @@ public class UserService {
 		Optional<User> obj = repository.findById(id);
 		return obj.get();
 	}
-	
+	// CRUD operation
 	//Operação básica para salvar um user no banco de dados - CREATE
 	public User insert(User obj) {
 		return repository.save(obj);
@@ -32,6 +32,21 @@ public class UserService {
 	//Operação básica para a deleção do user - DELETE
 	public void delete(Long id) {
 		repository.deleteById(id);
+	}
+	
+	//Operação para atualizar um user - Update
+	public User update(Long id, User obj) {
+		User entity = repository.getById(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+		
+	}
+
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+		
 	}
 
 }
