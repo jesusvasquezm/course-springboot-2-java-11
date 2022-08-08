@@ -24,10 +24,14 @@ public class UserService {
 		return obj.get();
 	}
 	
-	//Operação básica para salvar um user no banco de dados
+	//Operação básica para salvar um user no banco de dados - CREATE
 	public User insert(User obj) {
 		return repository.save(obj);
-		
+	}
+	
+	//Operação básica para a deleção do user - DELETE
+	public void delete(Long id) {
+		repository.deleteById(id);
 	}
 
 }
